@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Login</title>
+
+{% ifequal error "pass1" %}
+<script>
+    window.location=('{% url 'home' %}');
+</script>
+{% endifequal %}
+
+{% ifequal error "pass2" %}
+<script>
+    window.location=('{% url 'admin_home' %}');
+</script>
+{% endifequal %}
+
+<style>
+	.txt:hover{
+        text-decoration: underline;
+    }
+</style>
+
+
+<!-- login -->
+	<section class="logins py-5">
+		<div style="padding-top: 75px;" class="container py-xl-5 py-lg-3">
+<!--			<div style="padding-top: 45px;" class="login px-sm-4 mx-auto mw-100 login-wrapper">-->
+			<div class="col-md-5 mx-auto">
+				<form style="padding-top: 45px;" class="login-wrapper" action="" method="post">
+					{% csrf_token %}
+					<center><img height="75" width="75" src="{% static 'images/favico.png' %}">
+					<h2 style="font-family:Garamond, serif;">Smart<br> <span style="color:green">Channeling</span></h2></center><br>
+					<div class="form-group">
+						<label>Username</label>
+						<input type="text" class="form-control" name="uname" placeholder="Enter Username" required="">
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input type="password" class="form-control" name="pwd" placeholder="Enter Your Password" required="">
+					</div>
+					{% ifequal error "incorrect" %}
+							<div class="alert alert-danger"><center>Incorrect Username or Password<br><a href="{% url 'reset_password' %}">Forgot Password?</a></b></center></div>
+					{% endifequal %}<br>
+
+					<div><center><button class="button button1">Login</button></center></div><br>
+
+
+					<p class="text-center mt-5" style="color:black;"> Don't have an Account? <a style="color:green" class="txt" href="{% url 'signup' %}">Register Here</a></p>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- //login -->
+
+{% endblock %}

@@ -1,0 +1,221 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Smart Channeling - Consult</title>
+
+{% ifequal uer "admin" %}
+<script>
+	$(document).ready(function () {
+		$("#primeChk").css("filter", "blur(5px)");
+		Swal.fire({
+		  icon: 'warning',
+		  title: 'Need to be an User Bruh!',
+		  showConfirmButton: false,
+		})
+	});
+</script>
+{% endifequal %}
+
+{% ifequal prime "false" %}
+<script>
+
+	 $(document).ready(function () {
+	 	$("#primeChk").css("filter", "blur(5px)");
+
+			Swal.fire({
+			  title: "Purchase Smart Chaneling Prime?",
+			  text: "To Consult the Doctors you need to be a Smart Channeling Prime User",
+			  icon: "question",
+			  confirmButtonColor: "#0F8D0B",
+			  confirmButtonText: "Subscribe",
+			  showCancelButton: true,
+			  cancelButtonText: "No, thanks",
+			 }).then((result) => {
+					if (result.isConfirmed) {
+						window.location="{% url 'checkout' %}";
+					} else if (result.dismiss) {
+						window.location="{% url 'home' %}";
+					}
+				});
+
+	 });
+
+</script>
+{% endifequal %}
+
+{% ifequal error "sent" %}
+<script>
+	Swal.fire({
+	  icon: 'success',
+	  title: 'Consultation Request Sent!',
+	  text: "You'll Recieve the Response Soon under Diagnosis Report Section",
+	  showConfirmButton: true,
+	  confirmButtonColor: '	#5cb85c',
+	}).then((result) => {
+	  if (result.isConfirmed) {
+	   window.location="{% url 'report' %}";
+	  }
+	})
+
+</script>
+{% endifequal %}
+
+<script>
+$(document).ready(function() {
+	$('.select2').select2({
+		placeholder: 'Select Symptoms',
+		tags:true,
+
+	});
+});
+
+</script>
+
+<style xmlns="http://www.w3.org/1999/html">
+	.ilist{
+		width:300px;
+		margin-right: 75px;
+	}
+
+	.swal-modal .swal-text {
+    text-align: center;
+	}
+
+	.cont{
+		width: 600px;
+	}
+
+	.select2-container .select2-selection--multiple {
+        height: 82px;
+		border-radius: 0;
+		letter-spacing: 1px;
+		font-size: 15px;
+		outline: none;
+		box-shadow: 0px 2px 3px 0px rgb(0 0 0 / 11%);
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/fm.selectator.jquery.css' %}">
+<script src="{% static 'fm.selectator.jquery.js' %}"></script>
+
+
+	<section id="primeChk" class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<br><h2 class="w3ls-title text-uppercase text-dark font-weight-bold">Consult a Doctor</h2><hr/>
+			</div>
+			<div class="login px-sm-12" style="width:100%">
+				<form action="#" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group row">
+						<div class="col-md-6">
+							<label>Full Name</label>
+							<input type="text" class="form-control" name="fname" value="{{user.user.first_name}} {{user.user.last_name}}" required="">
+						</div>
+
+						<div class="col-md-6">
+							<label>Username</label>
+							<input type="text" class="form-control" name="uname" value="{{user.user.username}}" required="" readonly>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-md-3">
+							<label>Age</label>
+							<input type="text" class="form-control" name="age" value="{{age}}" required="">
+						</div>
+
+
+						<div class="col-md-3">
+							<label>Weight</label>
+							<input type="text" class="form-control" name="weight" value="" required="">
+						</div>
+
+						<div class="col-md-6">
+							<label>Height</label><br>
+							<select class="slt" name="feet">
+									<option disabled selected> Feet </option>
+									{% for i in ft %}
+									<option>{{i}} Feet</option>
+									{% endfor %}
+								</select>
+
+							<select class="slt" name="inch">
+									<option disabled selected>inches</option>
+									{% for i in in %}
+									<option>{{i}} Inches</option>
+									{% endfor %}
+								</select>
+
+
+						</div>
+
+
+					</div>
+
+
+
+					<div class="form-group row">
+						<div class="col-md-12">
+						<label>Symptoms</label><br>
+						<select class="select2 form-control" multiple="multiple" name="symptoms">
+										{% for i in symlist %}
+										<option> {{ i }}</option>
+										{% endfor %}
+									</select>
+                        </div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-md-12">
+							<label>Allergies or existing medical Conditions (If Any)</label>
+							<input type="text" class="form-control" name="amc" placeholder="Enter if you have any allergies or existing medical conditions such as diabetes or heart disease">
+						</div>
+
+					</div>
+
+					<div class="title-section mb-md-5 mb-4"><br><br>
+						<h5 class="w3ls-title text-uppercase text-dark">Additional Details</h5><hr/>
+
+					<div class="form-group row">
+						<div class="col-md-4">
+						<label>Image 1 </label>
+						<input type="file" class="form-control" name="img1">
+						</div>
+						<div class="col-md-4">
+						<label>Image 2 </label>
+						<input type="file" class="form-control" name="img2">
+						</div>
+						<div class="col-md-4">
+						<label>Image 3 </label>
+						<input type="file" class="form-control" name="img3">
+						</div>
+					</div>
+					</div>
+
+						<div class="form-group row">
+							<div class="col-md-12">
+								<div class="cont">
+									<label>Select The Doctor</label>
+									<select class="form-control" id="singlebox" name="doc">
+										{% for i in docc %}
+										<option data-subtitle="Specialization - {{i.category}}" data-left="{{i.image.url}}">{{i.user}} - {{i.user.first_name}} {{i.user.last_name}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div><br>
+						<div>
+							<button style="background:#D30000; border:none" class="btn btn-primary btn-lg button1">Consult</button>
+						</div>
+				</form>
+			</div>
+        </div>
+    </section>
+<script>
+	$('#singlebox').selectator();
+</script>
+{% endblock %}

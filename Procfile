@@ -1,0 +1,1 @@
+web: gunicorn smartchanneling.wsgi --log-file -

@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Smart Channeling - Feedbacks</title>
+
+<style>
+     #footer {
+            position: fixed;
+            padding: 10px 10px 0px 10px;
+            bottom: 0;
+            width: 100%;
+            /* Height of the footer*/
+            height: 40px;
+            background: grey;
+        }
+</style>
+
+<div class="container-fluid" style="width:90%;margin-top:8%">
+                    <div class="container-fluid">
+                        <h1 align="center" style="font-weight:bold;font-family:Garamond, serif; color : #E6120E ;margin-top:4%">View Feedback</h1>
+                         </div><hr>
+                                <table id="example" class="display tbc" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Full Name</th>
+                                      <th>Email</th>
+                                      <th>Contact</th>
+                                      <th>Messages</th>
+                                      <th>Action</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in fb %}
+                                <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{i.user.user.first_name}} {{i.user.user.last_name}}</td>
+                                  <td>{{i.user.user.email}}</td>
+                                  <td>{{i.user.contact}}</td>
+                                  <td>{{i.messages}}</td>
+                                  <td style="width:150px">
+<!--                                      <a href="{% url 'delete_feedback' i.id %}" ><button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash-o"></i></button></a></td>-->
+                                    <a href="#" onclick="myFunction(this)" data-url="{% url 'delete_feedback' i.id %}" data-toggle="tooltip" data-toggle="tooltip" data-placement="top" title="Delete">
+                                      <button class="btn btn-danger del"><i class="fa fa-trash-o"></i></button></a></td>
+                              </tr>
+                              {% endfor %}
+
+                               <script>
+                                    function myFunction(btn) {
+                                            var url = $(btn).data('url');
+                                            swal.fire({
+                                                title: "Are you sure?",
+                                                text: "You Want to Delete this Feedback",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#E6120E",
+                                                confirmButtonText: "Yes, delete it!",
+                                                closeOnConfirm: false
+                                            }).then((result) => {
+                                                  if (result.isConfirmed) {
+                                                    $.get(url)
+                                                    Swal.fire({
+                                                      icon: 'success',
+                                                      title: 'Deleted Succesfully',
+                                                      showConfirmButton: false,
+                                                      timer: 1500
+                                                    })
+                                                    setTimeout(function(){ window.location="{% url 'view_feedback' %}"; }, 1000);
+
+                                                  }
+                                                })
+                                        };
+                              </script>
+                          </tbody>
+                      </table>
+                  </div><br><br><br><br>
+
+{% endblock %}

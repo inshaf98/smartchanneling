@@ -1,0 +1,207 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Smart Channeling - Checkout</title>
+
+{% if request.user.is_authenticated == False or request.user.is_superuser or request.user.is_staff  %}
+<script>
+ $(document).ready(function () {
+	 	$("#usrchk").css("filter", "blur(5px)");
+
+			Swal.fire({
+			  title: "You Must be Logged in User",
+			  icon: "warning",
+			  showCancelButton: false,
+			  showConfirmationButton: false,
+			 });
+
+ });
+</script>
+{% endif %}
+
+
+<script>
+    $(document).ready(function () {
+
+        $(".chk-btn").hide()
+
+        $("#card1").click(function () {
+        $(".card").removeClass("highlight");
+        $(this).addClass("highlight");
+        $(".chk-btn").hide()
+        $("#cbtn1").show()
+        });
+
+        $("#card2").click(function () {
+        $(".card").removeClass("highlight");
+        $(this).addClass("highlight");
+        $(".chk-btn").hide()
+        $("#cbtn2").show()
+        });
+
+        $("#card3").click(function () {
+        $(".card").removeClass("highlight");
+        $(this).addClass("highlight");
+        $(".chk-btn").hide()
+        $("#cbtn3").show()
+        });
+    });
+
+
+
+</script>
+
+<style>
+
+
+/* Card Styling */
+.card{
+box-shadow: 3px 3px 8px hsl(0, 0%, 52%);
+padding:20px;
+border-radius:20px;
+border:none;
+color:white;
+height:350px;
+opacity: 0.9;
+transition:0.4s;
+}
+.card:hover {
+box-shadow: -12px 22px -5px hsl(0, 0%, 60%);
+opacity: 1;
+transform: scale(1.05);
+}
+
+.fryt{
+	float:left;
+}
+
+
+.pill{
+  pointer-events: none;
+  background-color: #EFF4FF;
+  border: none;
+  color: #2557D6;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 13px;
+  margin-left: -1px;
+  margin-bottom: 10px;
+  border-radius: 100px;
+}
+
+.highlight {
+border:solid 3px #0F8D0B;
+}
+
+</style>
+
+<body style="background:#F5F5F5">
+
+<div id="usrchk" class="container-fluid" style="width:90%; margin-top:8%">
+    <div class="container-fluid">
+        <h1 align="center" style="font-weight:bold; color : #0F8D0B ;margin-top:4%">Smart Channeling Prime</h1>
+        <h3 align="center" style=" font-family:Garamond, serif; font-weight:bold; color : #E6120E ;margin-top:1%">Select Your Subscription</h3>
+    </div><br><br>
+
+
+    <center>
+      <div class="card-deck" style="padding-left:200px;">
+        <div id="card1" class="card" style="max-width: 18rem;">
+            <div style="background:white; color:black; font-size:20px;" class="card-header"><b>1 Month</b></div>
+          <div class="card-body text-danger">
+            <h2 class="card-title"><span><sup style="font-size:16px; font-weight: lighter;">USD</sup></span>4.00</h2>
+              <button style="background-color:#E9EBEB; color:black" class="pill">save 0%</button>
+            <p class="card-text">Get Access to Smart Channeling Prime for one Month unlimited Checkups</p>
+          </div>
+        </div>
+
+
+          <div id="card2" class="card" style="max-width: 18rem;">
+            <div style="background:white; color:black; font-size:20px;" class="card-header"><b>6 Months</b></div>
+          <div class="card-body text-danger">
+            <h2 class="card-title"><span><sup style="font-size:16px;font-weight: lighter;">USD</sup></span>15.00</h2>
+              <button class="pill">save 35%</button>
+            <p class="card-text">Get Access to Smart Channeling Prime for Six Month of unlimited Checkups</p>
+          </div>
+        </div>
+
+
+          <div id="card3" class="card" style="max-width: 18rem;">
+            <div style="background:white; color:black; font-size:20px;" class="card-header"><b>1 Year</b></div>
+          <div class="card-body text-danger">
+            <h2 class="card-title"><span><sup style="font-size:16px; font-weight: lighter;">USD</sup></span>24.00</h2>
+              <button style="background-color:#FE4C65; color:white" class="pill">save 50%</button>
+            <p class="card-text">Get Access to Smart Channeling Prime 1 Year of unlimited Checkups</p>
+          </div>
+        </div>
+
+<!--          <div class="card border-success mb-3" style="max-width: 18rem;">-->
+<!--          <div class="card-header bg-transparent border-success">Header</div>-->
+<!--          <div class="card-body text-success">-->
+<!--            <h5 class="card-title">Success card title</h5>-->
+<!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--          </div>-->
+<!--          <div class="card-footer bg-transparent border-success">Footer</div>-->
+<!--        </div>-->
+
+
+
+      </div>
+
+        <div style="max-width: 28rem; padding-top:30px;">
+            <div id="cbtn1" class="chk-btn" style="padding-top:30px;"></div>
+            <div id="cbtn2" class="chk-btn" style="padding-top:30px;"></div>
+            <div id="cbtn3" class="chk-btn" style="padding-top:30px;"></div>
+        </div>
+
+
+<!--        <div style="padding-top:30px;">-->
+<!--			<button style="background:#D30000; border:none" class="btn btn-primary btn-lg button1">Checkout</button>-->
+<!--        </div>-->
+    </center>
+
+<!--    <div class="container" style="width:90%;">-->
+<!--        <div class="form-group row">-->
+<!--            <div class="col-md-4" style="margin-top:20px;">-->
+<!--                <h5 class="card-title txt">jshdgfsdgkfdh</h5>-->
+<!--                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="card-text">fdhgfh</p>-->
+<!--                 <div class="d-flex justify-content-between align-items-center"></div>-->
+<!--               </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+
+</div><br>
+<script src="https://www.paypal.com/sdk/js?client-id=AQw8MbrycEEx1G0trPbrpjeT2SIMWqck2_vpeS8YaoO2hCm4LK2OHRdMQu8-YFKDLvE-14LTIgAI_QwO&currency=USD"></script>
+<script>var URL = "{% url 'payment' %}";</script>
+<script>
+function updatePayment(){
+    var data = {'email':email, 'amount':amount, 'tr_id':tr_id, 'csrfmiddlewaretoken':"{{ csrf_token }}"};
+
+    $.post(URL,data, function(response){
+        if(response === 'success'){console.log('Response: Success');}
+        else{alert('Error! :(');}
+    });
+
+    setTimeout(function(){
+                  Swal.fire({
+                  icon: 'success',
+                  title: 'Payment Success',
+                  text: "Transaction ID : " + tr_id,
+                  showConfirmButton: true,
+                  confirmButtonColor: '	#5cb85c',
+                })
+         }, 2000);
+}
+</script>
+<script src="{% static 'paypal.js' %}"></script>
+
+
+
+{% endblock %}

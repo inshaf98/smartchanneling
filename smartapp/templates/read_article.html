@@ -1,0 +1,142 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>{{con.title}}</title>
+<style>
+.vl {
+  border-right: 1px green;
+  height: 1000px;
+}
+</style>
+
+
+<main style="margin-top:180px;" role="main" class="container">
+    <div class="row">
+        <div class="col-md-9 blog-main">
+            <div class="blog-post">
+
+                <h1 style="font-family:Garamond, serif;" class="blog-post-title">{{con.title}}</h1>
+                <p class="blog-post-meta">{{con.date}}</p><br><br>
+                <div><img src="{{con.image.url}}" width="820" height="450"></div><br><br>
+                <p style="color:black; white-space: pre-line;">{{con.content}}</p><br>
+
+                <br><h4>Related Posts</h4><hr>
+    <div class="form-group row">
+                {% for i in related %}
+        <div class="col-md-4">
+            <div class="card">
+                <a href="{% url 'read_article' i.id %}"> <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.title }}"></a>
+              <div class="card-body">
+                 <a href="{% url 'read_article' i.id %}"> <h6 class="card-title txt">{{ i.title }}</h6></a>
+
+                 <div class="d-flex justify-content-between align-items-center">
+                 <small class="text-muted">{{i.date}}</small>
+                 </div>
+               </div>
+              </div>
+            </div>
+
+            {% endfor %}
+    </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-3 blog-sidebar">
+            <br><br><br><br><br><h4>Recent Posts</h4><hr>
+            {% for i in recent %}
+                <div class="qoxag-grid-single thumb-left"><br>
+                        <div class="card">
+                            <a href="{% url 'read_article' i.id %}"> <img height="200" width="200" src="{{ i.image.url }}" class="card-img-top zoom" alt="{{ i.title }}"></a>
+                            <div class="card-body">
+                            <a href="{% url 'read_article' i.id %}"> <h6 class="card-title txt">{{ i.title }}</h6></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{i.date}}</small>
+                             </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</main>
+
+
+
+
+
+<!--<div><br><br><br><br><br><br><br><br><br></div>-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+
+<!--    <div class="col-lg-8 col-md-12 mx-auto">-->
+
+<!--        <div class="single-wrap">-->
+
+<!--            <div class="post-media post-image">-->
+<!--                <img class="img-fluid" src="{{ con.image.url }}" alt="{{ con.title }}">-->
+<!--            </div>-->
+
+<!--            <div class="post-body clearfix">-->
+<!--                <div class="entry-conntent clearfix">-->
+<!--                    <h1 class="entry-title">{{ con.title }}</h1>-->
+<!--                    <p>{{con.content}}</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--    <div class="col-lg-4 col-md-12" style="position:relative; overflow:visible; box-sizing: border-box; min-height:1px;">-->
+
+<!--        <div class="theiaStockySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; left: 712.2px; top: 0px;">-->
+
+<!--            <div class="widget qoxag_latest_news_widget">-->
+
+<!--                <h5 class="widget-title"> Most Recent </h5>-->
+
+<!--                <div class="ts-count-post qoxag-recent-post">-->
+<!--                    <div class="qoxag-wrapper qoxag-post-grid">-->
+
+<!--                        {% for i in recent %}-->
+<!--                        <div class="col-12">-->
+<!--                            <div class="qoxag-grid-single thumb-left">-->
+<!--                                <div class="post-thumb">-->
+<!--                                    <a href="{% url 'read_article' i.id %}" title="{{ i.title }}"></a>-->
+<!--                                </div>-->
+<!--                                <div class="post-content">-->
+<!--                                    <div class="category-wrapper position-">-->
+<!--                                        <small>{{ i.category }}</small>-->
+<!--                                    </div>-->
+<!--                                    <h3 class="post-heading">-->
+<!--                                        <a href="{% url 'read_article' i.id %}" title="{{ i.title }}"></a>-->
+<!--                                    </h3>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        {% endfor %}-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+
+
+<!--    </div>-->
+
+<!--</div>-->
+<!--</div>-->
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>{{request.user.username}} - Reports</title>
+<style>
+    .cg{
+        color:#009879;
+    }
+</style>
+<div class="container-fluid" style="width:90%;margin-top:8%">
+                    <div class="container-fluid">
+                        <h1 align="center" style="font-weight:bold;font-family:Garamond, serif; color : #E6120E ;margin-top:4%">View Diagnose Reports</h1>
+                         </div><hr>
+                                <table id="example" class="display tbc" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>Date</th>
+                                      <th>Full Name</th>
+                                      <th>Symptoms</th>
+                                      <th>Allergies and Medical Conditions</th>
+                                      <th>Remedies Given</th>
+                                      <th>Doctor</th>
+                                      <th>Action</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in pro %}
+                                <tr>
+                                  <td>{{i.date}}</td>
+                                  <td>{{i.fname}}</td>
+                                  <td>{{i.symptoms}}</td>
+                                  <td>{{i.allergiesEms}}</td>
+                                  {% if not i.advice is None %}
+<!--                                    <td><center>Yes</center></td>-->
+                                    <td><center><i class="cg fa fa-check-circle-o fa-lg"></i></center></td>
+                                  {% else %}
+                                    <td><center><i class="cg fa fa-times-circle-o fa-lg"></i></center></td>
+                                  {% endif %}
+<!--                                  <td>{{i.advice}}</td>-->
+                                  <td>{{i.doc}}</td>
+                                  <td style="width:150px">
+                                      <a href="{% url 'past_report' i.id %}" ><button class="btn btn-primary">View</button></a>
+                              </tr>
+                              {% endfor %}
+
+
+
+                          </tbody>
+                      </table>
+                  </div><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+{% endblock %}

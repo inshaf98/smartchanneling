@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<title>Smart Channeling - Add Articke</title>
+
+{% ifequal error "addnews" %}
+<script>
+Swal.fire({
+			  icon: 'success',
+			  title: 'Article added Succesfully!',
+			  showConfirmButton: true,
+			  confirmButtonColor: '	#5cb85c',
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			   window.location="{% url 'manage_article' %}";
+			  }
+			})
+</script>
+{% endifequal %}
+
+
+
+<section class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<h6 class="w3ls-title-sub"></h6>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Add Articles</h3>
+			</div><hr/>
+			<div class="login px-sm-12" style="width:100%">
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group row">
+						<div class="col-md-12">
+						<label>Title</label>
+						<input type="text" class="form-control" name="Title" placeholder="News Title" required="">
+						</div>
+					</div>
+
+                    <div class="form-group row">
+						<div class="col-md-12">
+						<label>Image</label>
+						<input type="file" class="form-control" name="image" required="">
+						</div>
+					</div>
+
+                    <div class="form-group row">
+						<div class="col-md-12">
+						<label>Content</label>
+						<textarea class="form-control" name="content" placeholder="Write Content" style="height:200px" required=""></textarea>
+                        </div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-md-12">
+						<label>Select The Article category</label>
+							<select class="form-control" name="cts">
+								{% for i in cat %}
+								<option value="{{i.name}}">{{i.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+					</div>
+
+
+					<button type="submit" class="btn submit mt-4">Add Article</button>
+				</form>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

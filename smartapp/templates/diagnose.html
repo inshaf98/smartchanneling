@@ -1,0 +1,191 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+
+<title>Smart Channeling - Diagnose</title>
+
+{% ifequal error "send" %}
+<script>
+    window.location="{% url 'view_requests' %}";
+</script>
+{% endifequal %}
+
+<style>
+    .div1{
+    color:green;
+    }
+    .div2{
+    color:red;
+    }
+
+</style>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="container" style="width:60%;margin-top:8%;margin-bottom:5%;background:white;border-radius:2%;border:1px solid grey">
+    <h2 style="font-weight:bold;font-family:Garamond, serif; color : #E6120E ;margin-top:2%" align="center">Patient Report</h2>
+
+<div align="left" class="container-fluid" style="width:100%;margin-bottom:5%">
+    <hr>
+
+    <div class="row" >
+        <div class="col-md-6 div2">
+            <strong>Full Name:</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.user.first_name}} {{pr.user.last_name}}
+        </div>
+    </div><hr>
+
+
+
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Username :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.user.username}}
+        </div>
+    </div><hr>
+
+     <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Age :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.age}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Weight :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.weight}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Height :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.height}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>BMI :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.bmi}}
+        </div>
+    </div><hr>
+
+
+     <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Symptoms :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.symptoms}}
+        </div>
+     </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Allergies and Medical Conditions :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.allergiesEms}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+        <strong>Additional Details</strong>
+        </div>
+    </div> <br><br>
+
+    <div class="form-group row">
+
+                        {% if pr.img1 %}
+                        <div class="col-md-4">
+                        <a href="{{pr.img1.url}}" target="_blank">
+						  <img src="{{pr.img1.url}}" style="width:250px;height:250px"></a>
+						</div>
+                        {% endif %}
+
+                        {% if pr.img2 %}
+                        <div class="col-md-4">
+                             <a href="{{pr.img2.url}}" target="_blank">
+						  <img src="{{pr.img2.url}}" style="width:250px;height:250px"></a>
+						</div>
+                        {% endif %}
+
+                        {% if pr.img3 %}
+                        <div class="col-md-4">
+                             <a href="{{pr.img3.url}}" target="_blank">
+						  <img src="{{pr.img3.url}}" style="width:250px;height:250px"></a>
+						</div>
+                        {% endif %}
+
+    </div><br>
+
+    <div class="form-group row">
+						<div class="col-md-12">
+                            <div class="div2">
+                            <strong>Remedies / Prescription</strong><br><br>
+						    <textarea class="form-control" name="advice" style="height:200px"></textarea>
+                            </div>
+					    </div>
+
+    </div>
+
+    <div class="form-group row">
+                            <div class="col-md-4">
+                            <input type="file" class="form-control" name="pre_img">
+                            </div>
+                        </div>
+
+   <div><center><button class="button button1">Send</button></center></div>
+</div></form></div>
+
+<div class="container-fluid" style="width:90%;margin-top:8%">
+                    <div class="container-fluid">
+                        <h1 align="center" style="font-weight:bold;font-family : 'Monotype Corsiva' ; color : #E6120E ;margin-top:4%">Patient Past History</h1>
+                         </div><hr>
+                                <table id="example" class="display" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Full Name</th>
+                                      <th>Symptoms</th>
+                                      <th>Allergies and Medical Conditions</th>
+                                      <th>Remedies / Prescription</th>
+                                      <th>Action</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in ph %}
+                                <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{i.user.first_name}} {{i.user.last_name}}</td>
+                                  <td>{{i.symptoms}}</td>
+                                  <td>{{i.allergiesEms}}</td>
+                                  <td>{{i.advice}}</td>
+                                  <td style="width:80px">
+                                      <a href="{% url 'past_report' i.id %}" target="_blank"><button class="btn btn-primary"><i class="fa fa-id-card-o"></i></button></a>
+                              </tr>
+                              {% endfor %}
+
+
+
+                          </tbody>
+                      </table>
+                  </div>
+
+{% endblock %}

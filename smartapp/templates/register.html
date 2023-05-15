@@ -1,0 +1,149 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Register</title>
+
+{% ifequal error "create" %}
+	<script>
+			Swal.fire({
+			  icon: 'success',
+			  title: 'Account Created Succesfully!',
+			  text: "You may Login now. Redirecting to Login Page",
+			  showConfirmButton: true,
+			  confirmButtonColor: '	#5cb85c',
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			   window.location="{% url 'login' %}";
+			  }
+			})
+	</script>
+{% endifequal %}
+
+<style>
+	.button1 {
+  background-color: #D30000;
+  color: white;
+  border: 2px solid #f74420;
+  width: 200px;
+  height: 45px
+}
+
+#nic-err {
+	color: red;
+	margin-top: 0px;
+	display: none;
+}
+
+.button1:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.05);
+
+</style>
+
+<section class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<h6 class="w3ls-title-sub"></h6>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Register Now</h3>
+			</div><hr/>
+			<div class="login px-sm-12" style="width:100%">
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group row">
+						<div class="col-md-6">
+						<label>First Name</label>
+						<input type="text" class="form-control" name="fname" placeholder="First Name" required="">
+						</div>
+						<div class="col-md-6">
+						<label>Last Name</label>
+						<input type="text" class="form-control" name="lname" placeholder="Last Name" required="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-6">
+						<label>Username</label>
+						<input type="text" class="form-control" name="uname" placeholder="Username" required="">
+						{% ifequal error "already" %}<span style="color:red">User Already Exists</span>{% endifequal %}
+						</div>
+
+
+						<div class="col-md-6">
+						<label>Password</label>
+						<input type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="pwd" placeholder="Password" required="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-6">
+						<label>Email</label>
+						<input type="email" class="form-control" name="email" placeholder="Enter Email" required="">
+							{% ifequal error "ealready" %}<span style="color:red">Email Already Exists</span>{% endifequal %}
+						</div>
+						<div class="col-md-6">
+						<label>Contact</label>
+						<input type="text" class="form-control" name="contact" placeholder="Enter Contact" required="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-6">
+						<label>Date Of Birth</label>
+						<input type="date" class="form-control" name="dob" placeholder="" required="">
+						</div>
+						<div class="col-md-6">
+						<label>Image</label>
+						<input type="file" class="form-control" name="image" required="">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-6">
+						<label class="mb-2">Address</label>
+						<input type="text" class="form-control" name="add" id="password1" placeholder="Enter Address" required="">
+						</div>
+						<div class="col-md-6">
+						<label>NIC</label>
+						<input type="type" class="form-control nc" id="nicc" pattern="([0-9]{9}[x|X|v|V]|[1|2]{1}[0|9]{1}[0-9]{10})" title="Enter A Valid NIC Number" name="nic" placeholder="Enter NIC Number" required="">
+							<p id="nic-err">Please Enter Valid NIC</p>
+							{% ifequal error "nic_exist" %}<span id="nicexist" style="color:red">NIC Already Registered</span>{% endifequal %}
+						</div>
+
+						<script>
+							var nic = document.getElementById('nicc');
+							var nicErr = document.getElementById('nic-err');
+
+							nic.onblur = function() {
+								  nicErr.style.display = "none";
+								  document.getElementById("nicexist").style.display = "none";
+								}
+
+
+							nic.addEventListener('input', function(e){
+								console.log(e.target.value);
+								var pattern = /^([0-9]{9}[x|X|v|V]|[1|2]{1}[0|9]{1}[0-9]{10})$/;
+								var currentValue = e.target.value;
+								var valid = pattern.test(currentValue);
+
+								if (nic.value.length == 0) {
+            						nicErr.style.display = 'none'
+        						}else{
+        							if(valid){
+										nicErr.style.display = 'none'
+									}else{
+										nicErr.style.display = 'block'
+									}
+        						}
+
+
+
+							})
+
+						</script>
+
+
+					</div><br><br>
+					<div><center><button class="button button1">Register</button><p><br>By clicking Register, I agree to your terms</p></center></div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

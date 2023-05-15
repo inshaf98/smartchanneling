@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Consult Requests</title>
+<div class="container-fluid" style="width:90%;margin-top:8%">
+                    <div class="container-fluid">
+                        <h1 align="center" style="font-family:Garamond, serif; color : #E6120E ;margin-top:4%">View Diagnose Requests</h1>
+                         </div><hr>
+                                <table id="example" class="display tbc" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Full Name</th>
+                                      <th>Username</th>
+                                      <th>Age</th>
+                                      <th>Weight</th>
+                                      <th>Symptoms</th>
+                                      <th>Allergies and Medical Conditions</th>
+                                      <th>Action</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in pro %}
+                                <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{i.fname}}</td>
+                                  <td>{{i.user.username}}</td>
+                                  <td>{{i.age}}</td>
+                                  <td>{{i.weight}}</td>
+                                  <td>{{i.symptoms}}</td>
+                                  <td>{{i.allergiesEms}}</td>
+                                  <td style="width:150px">
+                                      <a href="{% url 'diagnose' i.id %}" ><button class="btn btn-primary"><i class="fa fa-medkit"></i></button></a>
+                              </tr>
+                              {% endfor %}
+
+
+
+                          </tbody>
+                      </table>
+                  </div><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+{% endblock %}

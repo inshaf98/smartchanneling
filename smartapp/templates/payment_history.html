@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Smart Channeling - Payment History</title>
+{% ifequal error "login" %}
+
+<script>
+ $(document).ready(function () {
+	 	$("#usrchk").css("filter", "blur(5px)");
+
+			Swal.fire({
+			  title: "Please Login to View",
+			  icon: "warning",
+			  showCancelButton: false,
+			  showConfirmationButton: false,
+			 });
+
+ });
+</script>
+
+{% endifequal %}
+
+{% ifequal error "staff" %}
+
+<script>
+ $(document).ready(function () {
+	 	$("#usrchk").css("filter", "blur(5px)");
+
+			Swal.fire({
+			  title: "Access Denied",
+			  icon: "warning",
+			  showCancelButton: false,
+			  showConfirmationButton: false,
+			 });
+
+ });
+</script>
+
+{% endifequal %}
+
+<div id="usrchk" class="container-fluid" style="width:90%;margin-top:8%">
+                    <div class="container-fluid">
+                        <h1 align="center" style="font-weight:bold;font-family:Garamond, serif; color : #E6120E ;margin-top:4%">View Payment History</h1>
+                         </div><hr>
+                                <table id="example" class="display tbc" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Payment date</th>
+                                      <th>User</th>
+                                      <th>Email</th>
+                                      <th>Amount</th>
+                                      <th>Transaction ID</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+
+                              {% if request.user.is_superuser %}
+
+                                  {% for i in payment %}
+                                    <tr>
+                                      <td>{{forloop.counter}}</td>
+                                      <td>{{i.payment_date}}</td>
+                                      <td>{{i.user}}</td>
+                                      <td>{{i.email}}</td>
+                                      <td>{{i.amount}}</td>
+                                      <td>{{i.tr_id}}</td>
+                                  </tr>
+                                  {% endfor %}
+
+                              {% else %}
+
+                                    {% for i in uname %}
+                                    <tr>
+                                      <td>{{forloop.counter}}</td>
+                                      <td>{{i.payment_date}}</td>
+                                      <td>{{i.user}}</td>
+                                      <td>{{i.email}}</td>
+                                      <td>{{i.amount}}</td>
+                                      <td>{{i.tr_id}}</td>
+                                  </tr>
+                                  {% endfor %}
+
+                              {% endif %}
+                          </tbody>
+                      </table>
+                  </div><div style="padding-top:190px;"></div>
+
+{% endblock %}

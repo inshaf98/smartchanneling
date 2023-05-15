@@ -1,0 +1,199 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>Smart Channeling</title>
+<style>
+    .covText{
+        color:grey;
+        font-size:15px;
+    }
+
+    #dCard{
+        box-shadow: 3px 3px 8px hsl(0, 0%, 52%);
+        border-radius:20px;
+        border:none;
+        opacity: 0.9;
+        width: 63rem;
+        height:10rem;
+        overflow:hidden;
+      }
+
+
+     .vignette::after{
+        content: "";
+        position: absolute;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        box-shadow: inset 0 0 1000px rgba(0,0,0.6);
+     }
+</style>
+
+<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+
+<body style="background:#F5F5F5">
+
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" xmlns="http://www.w3.org/1999/html">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active vignette" style="height:630px">
+      <img src="{% static 'images/vgnt.png' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>The Foods We Choose Make a Difference</h1>
+      </div>
+    </div>
+    <div class="carousel-item vignette" style="height:630px">
+      <img src="{% static 'images/dw2.png' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Water is Your Best Friend for Life.</h1>
+      </div>
+    </div>
+    <div class="carousel-item" style="height:630px">
+      <img src="{% static 'images/14.png' %}" class="d-block w-100"  alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Make Your Health Priority</h1>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div><br><br>
+
+<div style="padding-left:60px;" class="container">
+        <div style="float:right; padding-right:90px; font-size:11px; color:grey;"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Updated on : {{slSummary.update_date_time}}</div>
+        <div class="card" id="dCard" style="">
+            <center><h3 style=" font-weight:bold; padding-top:10px;">Sri Lanka Covid-19 Statistics</h3></center><br>
+            <div style="padding-left:125px;" class="form-group row">
+                <div class="col-md-3" style="font-size:24px; font-weight:bold; color:blue;">{{slSummary.local_total_cases}}</div>
+                <div class="col-md-3" style="font-size:24px; font-weight:bold; color:red;">{{slSummary.local_deaths}}</div>
+                <div class="col-md-3" style="font-size:24px; font-weight:bold; color:green;">{{slSummary.local_recovered}}</div>
+                <div class="col-md-3" style="font-size:24px; font-weight:bold; color:orange;">{{slSummary.local_active_cases}}</div>
+            </div>
+
+            <div style="padding-left:125px;" class="flex form-group row">
+                <div class="col-md-3 covText">Total Cases</div>
+                <div class="col-md-3 covText">Death Cases</div>
+                <div class="col-md-3 covText">Recovered Cases</div>
+                <div class="col-md-3 covText">Active Cases</div>
+            </div>
+
+        </div>
+
+
+</div><br><br>
+
+
+<!--Top Health News-->
+<div class="container" style="width:90%;">
+  <div><h1 style="font-family:Garamond, serif;"><span>Top </span><span style="color:green">Health News</span><a class="seemore" href="{% url 'see_all' cid='news' %}" >SEE ALL</a></h1></div><hr style="border-top: 1px solid #90ee90">
+<div class="form-group row">
+    {% for title, desc, img, dat, ur in mylist %}
+    <div class="col-md-4" style="margin-top:20px;">
+      <div class="card rounded" style="height: 33rem; overflow:hidden; " >
+        <a href="{{ur}}" target="_blank"> <img height="250px" src="{{img}}" class="card-img-top inr" alt="img"></a>
+       <div class="card-body">
+         <a href="{{ur}}" target="_blank"> <h5 class="card-title txt">{{ title }}</h5></a>
+        <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="card-text">{{desc}}</p>
+         <div class="d-flex justify-content-between align-items-center">
+         <small class="text-muted">{{dat}}</small>
+         </div>
+       </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!--    Fitness article -->
+    <div class="row">
+        <div class="col-lg-8 first-block" style="padding-top:15px;">
+            <div><h1><span style="color:green; font-family:Garamond, serif;"> Fitness</span><a class="seemore" href="{% url 'see_all' cid='fitness' %}" >SEE ALL</a></h1></div><hr style="border-top: 1px solid #90ee90">
+            <div class="qoxag-grid-single thumb-top">
+                {% for i in fit %}
+            <div class="card" style="height: 49rem; overflow:hidden;">
+                <a href="{% url 'read_article' i.id %}"> <img src="{{ i.image.url }}" class="card-img-top inr" alt="{{ i.title }}"></a>
+                <div class="card-body">
+                    <a href="{% url 'read_article' i.id %}"> <h4 style="color:black" class="card-title txt">{{ i.title }}</h4></a>
+                         <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;" class="card-text">{{ i.content }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">{{i.date}}</small>
+                        </div>
+                </div>
+            </div>
+                {% endfor %}
+
+
+            </div>
+
+
+        </div>
+<!--        Travel articles -->
+        <div class="col-lg-4">
+            <div class="row">
+                <div style="padding-top:15px;"><h1 style="font-family:Garamond, serif;">&ensp;Travel
+                    <span style="color:green">Stories &emsp;&nbsp;</span><a href="{% url 'see_all' cid='travel' %}" class="seemore" >SEE ALL</a></h1><hr style="border-top: 1px solid #90ee90; margin-left:15px;"></div>
+                {% for i in travel %}
+                <div class="col-lg-12 col-md-6 col-sm-12">
+                    <div class="qoxag-grid-single thumb-left">
+                        <div class="card" style="overflow:hidden;">
+                            <a href="{% url 'read_article' i.id %}"> <img height="200" width="200" src="{{ i.image.url }}" class="card-img-top inr" alt="{{ i.title }}"></a>
+                            <div class="card-body">
+                            <a href="{% url 'read_article' i.id %}"> <h5 class="card-title txt">{{ i.title }}</h5></a>
+                            <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="card-text">{{ i.content }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{i.date}}</small>
+                             </div>
+                            </div>
+                        </div>
+                    </div><br>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+    </div><br><br>
+
+<!--    Healthy Eating and wellness-->
+
+    <div><h1 style="font-family:Garamond, serif;">Healthy<span style="color:green"> Eating & Wellness </span>Topics <a href="{% url 'see_all' cid='heat' %}" class="seemore">SEE ALL</a></h1></div><hr style="border-top: 1px solid #90ee90">
+<div class="container-fluid">
+
+    {% for i in heat %}
+
+<!--    <div class="card mt-4 zoom">-->
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{% url 'read_article' i.id %}"><img src="{{i.image.url}}" class="img-fluid inr"></a>
+            </div>
+            <div class="col-md-8">
+                <a href="{% url 'read_article' i.id %}"><h3 style="color:black" class="card-title mt-2 txt">{{i.title}}</h3></a>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{i.content}}</p>
+            </div>
+        </div><br>
+<!--    </div>-->
+
+    {% endfor %}
+
+</div>
+
+
+
+
+</div><br>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>{{ error }} - All</title>
+<div class="container" style="width:90%; padding-top:150px;">
+   {% ifequal error "news" %}
+     <div><h1 style="font-family:Garamond, serif;"><span style="color:green">Health </span><span>News </span></h1></div><hr style="border-top: 1px solid #90ee90">
+        <div class="form-group row">
+            {% for title, desc, img, dat, ur in mylist %}
+            <div class="col-md-4" style="margin-top:20px;">
+              <div class="card rounded" style="height: 33rem; overflow:hidden; " >
+                <a href="{{ur}}" target="_blank"> <img height="250px" src="{{img}}" class="card-img-top inr" alt="img"></a>
+               <div class="card-body">
+                 <a href="{{ur}}" target="_blank"> <h5 class="card-title txt">{{ title }}</h5></a>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="card-text">{{desc}}</p>
+                 <div class="d-flex justify-content-between align-items-center">
+                 <small class="text-muted">{{dat}}</small>
+                 </div>
+               </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    {% endifequal %}
+
+
+     {% ifequal error "fitness" %}
+     <div><h1 style="font-family:Garamond, serif;"><span style="color:green">Fitness</span></h1></div><hr style="border-top: 1px solid #90ee90">
+        <div class="form-group row">
+            {% for i in fit %}
+            <div class="col-md-4" style="margin-top:20px;">
+              <div class="card rounded" style="height: 33rem; overflow:hidden; " >
+                <a href="{% url 'read_article' i.id %}" target="_blank"> <img height="250px" src="{{ i.image.url }}" class="card-img-top inr" alt="img"></a>
+               <div class="card-body">
+                 <a href="{% url 'read_article' i.id %}" target="_blank"> <h5 class="card-title txt">{{ i.title }}</h5></a>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="card-text">{{ i.content }}</p>
+                 <div class="d-flex justify-content-between align-items-center">
+                 <small class="text-muted">{{i.date}}</small>
+                 </div>
+               </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    {% endifequal %}
+
+     {% ifequal error "travel" %}
+     <div><h1 style="font-family:Garamond, serif;"><span style="color:green">Travel</span></h1></div><hr style="border-top: 1px solid #90ee90">
+        <div class="form-group row">
+            {% for i in travel %}
+            <div class="col-md-4" style="margin-top:20px;">
+              <div class="card rounded" style="height: 33rem; overflow:hidden; " >
+                <a href="{% url 'read_article' i.id %}" target="_blank"> <img height="250px" src="{{ i.image.url }}" class="card-img-top inr" alt="img"></a>
+               <div class="card-body">
+                 <a href="{% url 'read_article' i.id %}" target="_blank"> <h5 class="card-title txt">{{ i.title }}</h5></a>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="card-text">{{ i.content }}</p>
+                 <div class="d-flex justify-content-between align-items-center">
+                 <small class="text-muted">{{i.date}}</small>
+                 </div>
+               </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    {% endifequal %}
+
+     {% ifequal error "HEWT" %}
+     <div><h1 style="font-family:Garamond, serif;"><span style="color:green">Healthy Eating and Wellness Topics</span></h1></div><hr style="border-top: 1px solid #90ee90">
+        <div class="form-group row">
+            {% for i in heat %}
+            <div class="col-md-4" style="margin-top:20px;">
+              <div class="card rounded" style="height: 33rem; overflow:hidden; " >
+                <a href="{% url 'read_article' i.id %}" target="_blank"> <img height="250px" src="{{ i.image.url }}" class="card-img-top inr" alt="img"></a>
+               <div class="card-body">
+                 <a href="{% url 'read_article' i.id %}" target="_blank"> <h5 class="card-title txt">{{ i.title }}</h5></a>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" class="card-text">{{ i.content }}</p>
+                 <div class="d-flex justify-content-between align-items-center">
+                 <small class="text-muted">{{i.date}}</small>
+                 </div>
+               </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+    {% endifequal %}
+</div>
+{% endblock %}

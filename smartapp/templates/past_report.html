@@ -1,0 +1,195 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<title>{{pr.user.first_name}} {{pr.user.last_name}} - Report({{pr.date}})</title>
+
+<style>
+    .div1{
+    color:green;
+    }
+    .div2{
+    color:red;
+    }
+</style>
+
+<!--Script for Printing-->
+<script>
+     function printDiv() {
+         var divContents = document.getElementById("forprint").innerHTML;
+         var a = window.open('', '', 'height=700, width=700');
+         a.document.write('<html>');
+         a.document.write('<head> <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" /> <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">');
+         a.document.write('<body > <center><h1 style="color:green;"><span class = "fa fa-user-md mr-2"></span>&nbsp;SMART CHANNELING </center><br>');
+         a.document.write(divContents);
+         a.document.write('</head></body></html>');
+         a.document.close();
+         a.print();
+        }
+
+        function printPre() {
+         var name = document.getElementById("name").innerHTML;
+         var doc = document.getElementById("doc").innerHTML;
+         var prescription = document.getElementById("print_prescription").innerHTML;
+         var a = window.open('', '', 'height=700, width=700');
+         a.document.write('<html>');
+         a.document.write('<head> <style>#prnt{display:none;}</style> <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" /> <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">');
+         a.document.write('<body> <center><h1 style="color:green;"><span class = "fa fa-user-md mr-2"></span>&nbsp;SMART CHANNELING<br><span style="font-size:25px;">({{pr.date}})</center></span></h1>><br>');
+         a.document.write("<center><h3><b>Full Name: </b><br>" + name + "<br>");
+         a.document.write('<br><b>Prescription Given: </b><br><h3 style="white-space: pre-line;">' + prescription + '</h3><br>');
+         a.document.write("<center><h3><b>Consultant: </b><br>" + doc + "<br></center>");
+         {% if pr.prescribe_img %}
+               a.document.write('<br><br><img src="{{pr.prescribe_img.url}}" style="width:600px;height:600px">');
+         {% endif %}
+         a.document.write('</head></body></html>');
+         a.document.close();
+         a.print();
+        }
+</script>
+
+
+
+<div class="container" id="forprint" style="width:60%;margin-top:8%;margin-bottom:5%;background:white;border-radius:2%;border:1px solid grey">
+    <button class="btn d-print-none" onclick="printDiv()" style="float:right; margin-top:15px; padding-top:5px;"><i class="fa fa-print fa-2x" aria-hidden="true"></i></button>
+    <h2 style="font-weight:bold;font-family:Garamond, serif; color : #E6120E ;margin-top:2%" align="center">{{pr.user.first_name}} {{pr.user.last_name}} Report ({{pr.date}})</h2>
+
+
+<div align="left" class="container-fluid" style="width:100%;margin-bottom:5%">
+    <hr>
+
+
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Full Name:</strong>
+        </div>
+        <div id="name" class="col-md-6 div1">
+            {{pr.user.first_name}} {{pr.user.last_name}}
+        </div>
+    </div><hr>
+
+
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Username :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.user.username}}
+        </div>
+    </div><hr>
+
+     <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Age :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.age}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Weight :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.weight}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Height :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.height}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>BMI :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.bmi}}
+        </div>
+    </div><hr>
+
+
+     <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Symptoms :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.symptoms}}
+        </div>
+     </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Allergies and Medical Conditions :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pr.allergiesEms}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+        <strong>Additional Details</strong>
+        </div>
+    </div> <br><br>
+                <div class="form-group row">
+                        {% if pr.img1 %}
+                        <div class="col-md-4">
+                        <a href="{{pr.img1.url}}" target="_blank">
+						  <img src="{{pr.img1.url}}" style="width:250px;height:250px"></a>
+						</div>
+                        {% endif %}
+
+                        {% if pr.img2 %}
+                        <div class="col-md-4">
+                             <a href="{{pr.img2.url}}" target="_blank">
+						  <img src="{{pr.img2.url}}" style="width:250px;height:250px"></a>
+						</div>
+                        {% endif %}
+
+                        {% if pr.img3 %}
+                        <div class="col-md-4">
+                             <a href="{{pr.img3.url}}" target="_blank">
+						  <img src="{{pr.img3.url}}" style="width:250px;height:250px"></a>
+						</div>
+                        {% endif %}
+                </div>
+    </div><br>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Consultant:</strong>
+        </div>
+        <div id="doc" class="col-md-6 div1">
+            {{doc.first_name}} {{doc.last_name}}
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2" id="prescription_title">
+            <strong>Remedies / Prescription given :</strong>
+        </div>
+
+        <div id="print_prescription" class="col-md-6 div1" style="white-space: pre-line;">{{pr.advice}} &emsp; <span id="prnt"><i class="fa fa-print fa-lg" onclick="printPre()" aria-hidden="true"></i></span><br></div>
+
+
+        {% if pr.prescribe_img %}
+       <div class="col-md-6"></div>
+            <div style="padding-top:3rem;" class="col-md-4">
+                <a href="{{pr.prescribe_img.url}}" target="_blank">
+                    <img src="{{pr.prescribe_img.url}}" style="width:250px;height:250px"></a>
+            </div>
+         {% endif %}
+
+    </div><hr>
+
+
+</div></div>
+
+{% endblock %}
