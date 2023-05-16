@@ -8,3 +8,4 @@ The main component in the project is a web application which includes admin, use
 The project uses technologies such as HTML, JS, CSS, Bootstrap, Python and Django framework, with Django being the main component and used PostgreSQL as the database to store data.
 
 ## View live [here](https://smartchanneling-production.up.railway.app/).
+Note:- Must Login to Make Predictions
